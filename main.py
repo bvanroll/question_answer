@@ -18,7 +18,7 @@ class Root(object):
   def index(self, *args, **kwargs):
     answer = ""
 
-    with open('data.txt') as f:
+    with open('data.txt',encoding='utf8') as f:
         context = f.read()
         f.close()
 
