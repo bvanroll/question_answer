@@ -14,14 +14,6 @@ config = {
 
 class Root(object):
 
-  
-
-  def answer_question(self, question, context):
-    question_answerer = pipeline('question-answering', model=model_name, tokenizer=model_name)
-    answer = question_answerer({'question': question, 'context': context})
-    print(answer)
-    return answer["answer"]
-    
   @cherrypy.expose
   def index(self, *args, **kwargs):
     answer = ""
@@ -36,15 +28,7 @@ class Root(object):
         answer = "<h1>answer</h1><p>{}</p>".format(temp["answer"])
 
     return "<html><head><title>reinout project 1</title></head><body><h1>question</h1><form method=\"POST\" action=\"index\"><input type=\"text\" name=\"question\" size=\"50\"/><button type=\"submit\">send!</button></form>{}</body></html>".format(answer) 
-  
-  @cherrypy.expose
-  def question(self, *args,**kwargs):
-    with open('data.txt') as f:
-        alles = f.read()
-        f.close()
-    string=self.answer_question(cherrypy.request.params.get('the_link'), alles)
-    return string
-
+ 
 
 if __name__ == '__main__':
     cherrypy.quickstart(Root(), '/', config)
